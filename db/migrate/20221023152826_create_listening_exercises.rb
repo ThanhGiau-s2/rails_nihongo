@@ -1,0 +1,11 @@
+class CreateListeningExercises < ActiveRecord::Migration[7.0]
+  def change
+    create_table :listening_exercises do |t|
+      t.string :content, null: false
+      t.string :part, null: false
+      t.references :lesson, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
