@@ -5,7 +5,7 @@ class CreateAlphabets < ActiveRecord::Migration[7.0]
       t.string :hiragana
       t.string :katakana
       t.string :mp3
-      t.integer :type, null: false
+      t.integer :classify, null: false
 
       t.timestamps
     end
