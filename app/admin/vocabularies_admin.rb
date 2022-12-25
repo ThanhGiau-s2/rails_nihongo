@@ -1,6 +1,8 @@
 Trestle.resource(:vocabularies) do
   menu do
-    item :vocabularies, icon: "fa fa-star"
+    group :document do
+      item :vocabularies, icon: "fa fa-star"
+    end
   end
 
   # Customize the table columns shown on the index view.
@@ -13,14 +15,19 @@ Trestle.resource(:vocabularies) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |vocabulary|
-  #   text_field :name
-  #
-  #   row do
-  #     col { datetime_field :updated_at }
-  #     col { datetime_field :created_at }
-  #   end
-  # end
+  form do |vocabulary|
+    row do
+      col { text_field :furigana }
+      col { text_field :kanji }
+    end
+
+    row do
+      col { text_field :mean }
+      col { text_field :mp3 }
+    end
+
+    select :lesson_id, Lesson.all, include_blank: "- Select Lesson -"
+  end
 
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly

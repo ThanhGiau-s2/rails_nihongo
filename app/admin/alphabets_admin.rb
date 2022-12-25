@@ -1,6 +1,8 @@
 Trestle.resource(:alphabets) do
   menu do
-    item :alphabets, icon: "fa fa-star"
+    group :library do
+      item :alphabets, icon: "fa fa-star"
+    end
   end
 
   # Customize the table columns shown on the index view.
@@ -13,14 +15,18 @@ Trestle.resource(:alphabets) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |alphabet|
-  #   text_field :name
-  #
-  #   row do
-  #     col { datetime_field :updated_at }
-  #     col { datetime_field :created_at }
-  #   end
-  # end
+  form do |alphabet|
+    row do
+      col { text_field :romaji }
+      col { text_field :hiragana }
+      col { text_field :katakana }
+    end
+
+    row do
+      col { text_field :mp3 }
+      col { text_field :classify }
+    end
+  end
 
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly

@@ -1,6 +1,8 @@
 Trestle.resource(:result_exam_vocab_details) do
   menu do
-    item :result_exam_vocab_details, icon: "fa fa-star"
+    group :exam do
+      item :result_exam_vocab_details, icon: "fa fa-star"
+    end
   end
 
   # Customize the table columns shown on the index view.
@@ -13,14 +15,16 @@ Trestle.resource(:result_exam_vocab_details) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |result_exam_vocab_detail|
-  #   text_field :name
-  #
-  #   row do
-  #     col { datetime_field :updated_at }
-  #     col { datetime_field :created_at }
-  #   end
-  # end
+  form do |result_exam_vocab_detail|
+    text_field :response
+
+    row do
+      col { text_field :result }
+      col { select :result_exam_vocab_id, ResultExamVocab.all, include_blank: "- Select Result Exam Vocab -" }
+    end
+
+    select :vocab_question_id, VocabQuestion.all, include_blank: "- Select Vocab Question -"
+  end
 
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly
