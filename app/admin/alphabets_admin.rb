@@ -38,4 +38,18 @@ Trestle.resource(:alphabets) do
   # params do |params|
   #   params.require(:alphabet).permit(:name, ...)
   # end
+  controller do    
+    def export_csv
+      csv = ExportCsvService.new Alphabet.all, Alphabet::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "alphabets.csv" }
+      end
+    end
+
+    def import_csv
+      Alphabet.import_file params[:file]
+      redirect_to alphabets_admin_index_path, notice: "The alphabet was successfully imported."
+    end
+  end
 end
