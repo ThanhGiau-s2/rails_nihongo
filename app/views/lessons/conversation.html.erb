@@ -1,0 +1,20 @@
+<div class="dd"><h3><a href="">Trang chủ</a> >> <a href="dsbh">Danh sách bài học</a> >><a href="bai/{{$id}}"> Bài </a>>>Hội thoại</h3></div>
+<div class="col-md-8 col-xs-12 ctbh">
+  <div class="tieude_ht">
+    <h2><b></b></h2>
+  </div>
+  <div class="hinhdaidien">
+    <img src="upload/hoithoai/{{$ht->hinhdaidien}}"/>
+  </div>
+  <div class="audio">
+    <audio controls style="width: 300px;">
+      <source src="upload/hoithoai/{{$ht->mp3}}" type="audio/mpeg">
+    </audio>    
+  </div>
+  <div class="">
+    
+  </div>  
+</div>
+
+
+<%= link_to "Ngữ pháp", grammar_lesson_path %>

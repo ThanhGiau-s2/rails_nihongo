@@ -1,0 +1,32 @@
+<div class="dd">
+  <h3><a href="">Trang chủ</a> >> <a href="">Bài  </a>>> Chi tiết bài học</h3>
+</div>
+<div class="ctbh">
+  <div class="row">
+    <%= link_to vocabulary_lesson_path, :class => "col-md-5 col-5 nd tv" do %>
+      <img src="client/assets/images/tuvung.png" alt=""/>
+      <span>Từ vựng</span>
+    <% end %>
+    <%= link_to grammar_lesson_path, :class => "col-md-5 col-5 nd np" do %>
+      <img src="client/assets/images/nguphap.jpg" alt=""/>
+      <span>Ngữ pháp</span>
+    <% end %>
+  </div>
+  <div class="row">
+    <%= link_to practice_reading_lesson_path, :class => "col-md-5 col-5 nd ld" do %>
+      <img src="client/assets/images/luyendoc.jpg" alt=""/>
+      <span>Luyện đọc</span>
+    <% end %>
+    <%= link_to conversation_lesson_path, :class => "col-md-5 col-5 nd ht" do %>
+      <img src="client/assets/images/hoithoai.jpg" alt=""/>
+      <span>Hội thoại</span>
+    <% end %>
+  </div>
+  <div class="row">
+    <%= link_to conversation_lesson_path, :class => "col-md-5 col-5 nd ln" do %>
+      <img src="client/assets/images/luyennghe.jpg" alt=""/>
+      <span>Luyện nghe</span>
+    <% end %>
+  </div>
+</div>
+            
