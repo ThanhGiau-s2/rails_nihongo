@@ -31,4 +31,26 @@ Trestle.resource(:grammar_questions) do
   # params do |params|
   #   params.require(:grammar_question).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new GrammarQuestion.all, GrammarQuestion::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_grammar_questions.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new GrammarQuestion.all, GrammarQuestion::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_grammar_questions.csv" }
+      end
+    end
+
+    def import_csv
+      GrammarQuestion.import_file params[:file]
+      redirect_to grammar_questions_admin_index_path, notice: "The grammar_question was successfully imported."
+    end
+  end
 end

@@ -31,4 +31,26 @@ Trestle.resource(:practice_readings) do
   # params do |params|
   #   params.require(:practice_reading).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new PracticeReading.all, PracticeReading::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_practice_readings.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new PracticeReading.all, PracticeReading::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_practice_readings.csv" }
+      end
+    end
+
+    def import_csv
+      PracticeReading.import_file params[:file]
+      redirect_to practice_readings_admin_index_path, notice: "The practice reading was successfully imported."
+    end
+  end
 end

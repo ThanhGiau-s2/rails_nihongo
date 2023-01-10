@@ -39,4 +39,26 @@ Trestle.resource(:vocabularies) do
   # params do |params|
   #   params.require(:vocabulary).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new Vocabulary.all, Vocabulary::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_vocabularies.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new Vocabulary.all, Vocabulary::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_vocabularies.csv" }
+      end
+    end
+
+    def import_csv
+      Vocabulary.import_file params[:file]
+      redirect_to vocabularies_admin_index_path, notice: "The vocabulary was successfully imported."
+    end
+  end
 end

@@ -44,4 +44,26 @@ Trestle.resource(:vocab_questions) do
   # params do |params|
   #   params.require(:vocab_question).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new VocabQuestion.all, VocabQuestion::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_vocab_questions.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new VocabQuestion.all, VocabQuestion::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_vocab_questions.csv" }
+      end
+    end
+
+    def import_csv
+      VocabQuestion.import_file params[:file]
+      redirect_to vocab_questions_admin_index_path, notice: "The summary_question was successfully imported."
+    end
+  end
 end

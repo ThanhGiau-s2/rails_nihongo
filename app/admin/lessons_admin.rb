@@ -30,4 +30,26 @@ Trestle.resource(:lessons) do
   # params do |params|
   #   params.require(:lesson).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new Lesson.all, Lesson::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_lessons.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new Lesson.all, Lesson::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_lessons.csv" }
+      end
+    end
+
+    def import_csv
+      Lesson.import_file params[:file]
+      redirect_to lessons_admin_index_path, notice: "The lesson was successfully imported."
+    end
+  end
 end

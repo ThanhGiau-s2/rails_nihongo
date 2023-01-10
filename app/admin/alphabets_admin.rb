@@ -38,12 +38,20 @@ Trestle.resource(:alphabets) do
   # params do |params|
   #   params.require(:alphabet).permit(:name, ...)
   # end
-  controller do    
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new Alphabet.all, Alphabet::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_alphabets.csv" }
+      end
+    end
+   
     def export_csv
       csv = ExportCsvService.new Alphabet.all, Alphabet::CSV_ATTRIBUTES
       respond_to do |format|
         format.csv { send_data csv.perform,
-          filename: "alphabets.csv" }
+          filename: "list_of_alphabets.csv" }
       end
     end
 

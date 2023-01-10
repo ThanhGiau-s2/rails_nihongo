@@ -44,4 +44,26 @@ Trestle.resource(:summary_questions) do
   # params do |params|
   #   params.require(:summary_question).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new SummaryQuestion.all, SummaryQuestion::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_summary_questions.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new SummaryQuestion.all, SummaryQuestion::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_summary_questions.csv" }
+      end
+    end
+
+    def import_csv
+      SummaryQuestion.import_file params[:file]
+      redirect_to summary_questions_admin_index_path, notice: "The summary_question was successfully imported."
+    end
+  end
 end

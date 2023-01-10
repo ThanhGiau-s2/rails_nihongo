@@ -9,6 +9,12 @@ class ExportCsvService
     @header = attributes.map { |attr| "#{attr}" }
   end
 
+  def sample
+    CSV.generate do |csv|
+      csv << header
+    end
+  end
+
   def perform
     CSV.generate do |csv|
       csv << header

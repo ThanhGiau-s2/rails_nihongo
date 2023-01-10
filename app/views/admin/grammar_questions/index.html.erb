@@ -21,7 +21,7 @@
 <% end; end %>
 
 <% toolbar(:secondary) do |t| %>
-  <%= link_to "Export CSV", alphabets_export_csv_path(format: :csv), class: "btn btn-primary" %>
+  <%= link_to "Export CSV", grammar_questions_export_csv_path(format: :csv), class: "btn btn-primary" %>
 <% end %>
 
 <% toolbar(:secondary) do |t| %>
@@ -53,7 +53,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= form_tag alphabets_import_csv_path, multipart: true do %>
+      <%= form_tag grammar_questions_import_csv_path, multipart: true do %>
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Import CSV</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -61,7 +61,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p><%= link_to "Download sample CSV", alphabets_download_sample_csv_path(format: :csv), class: "btn btn-primary" %></p>
+          <p><%= link_to "Download sample CSV", grammar_questions_download_sample_csv_path(format: :csv), class: "btn btn-primary" %></p>
           <%= file_field_tag :file %>
         </div>
         <div class="modal-footer">

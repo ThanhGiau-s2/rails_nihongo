@@ -32,4 +32,26 @@ Trestle.resource(:conversations) do
   # params do |params|
   #   params.require(:conversation).permit(:name, ...)
   # end
+  controller do 
+    def download_sample_csv
+      csv = ExportCsvService.new Conversation.all, Conversation::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.sample,
+          filename: "sample_list_of_conversations.csv" }
+      end
+    end
+   
+    def export_csv
+      csv = ExportCsvService.new Conversation.all, Conversation::CSV_ATTRIBUTES
+      respond_to do |format|
+        format.csv { send_data csv.perform,
+          filename: "list_of_conversations.csv" }
+      end
+    end
+
+    def import_csv
+      Conversation.import_file params[:file]
+      redirect_to conversations_admin_index_path, notice: "The conversation was successfully imported."
+    end
+  end
 end
